@@ -4055,7 +4055,6 @@ static inline bool task_fits_max(struct task_struct *p, int cpu)
 	if (is_min_capacity_cpu(cpu)) {
 		if (task_boost_policy(p) == SCHED_BOOST_ON_BIG ||
 			task_boost > 0 ||
-			schedtune_task_boost(p) > 0 ||
 			walt_should_kick_upmigrate(p, cpu))
 			return false;
 	} else { /* mid cap cpu */
@@ -7435,6 +7434,11 @@ static void find_best_target(struct sched_domain *sd, cpumask_t *cpus,
 
 	} while (sg = sg->next, sg != start_sd->groups);
 
+	if (prefer_idle && (best_idle_cpu != -1)) {
+		target_cpu = best_idle_cpu;
+		goto target;
+	}
+
 	adjust_cpus_for_packing(p, &target_cpu, &best_idle_cpu,
 				shallowest_idle_cstate,
 				fbt_env, boosted);
@@ -7464,11 +7468,6 @@ static void find_best_target(struct sched_domain *sd, cpumask_t *cpus,
 		curr_tsk = READ_ONCE(cpu_rq(target_cpu)->curr);
 		if (curr_tsk && schedtune_task_boost_rcu_locked(curr_tsk))
 			target_cpu = best_idle_cpu;
-	}
-
-	if (prefer_idle && (best_idle_cpu != -1)) {
-		target_cpu = best_idle_cpu;
-		goto target;
 	}
 
 	if (target_cpu == -1)
