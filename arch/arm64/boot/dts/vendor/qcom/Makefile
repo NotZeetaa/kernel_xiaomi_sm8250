@@ -1,5 +1,19 @@
 ifeq ($(CONFIG_BOARD_XIAOMI_SM8250),y)
 ifeq ($(CONFIG_BUILD_ARM64_DT_OVERLAY),y)
+        dtbo-$(CONFIG_MACH_XIAOMI_ALIOTH) += \
+             alioth-sm8250-overlay.dtbo
+        dtbo-$(CONFIG_MACH_XIAOMI_APOLLO) += \
+             apollo-sm8250-overlay.dtbo
+        dtbo-$(CONFIG_MACH_XIAOMI_CAS) += \
+             cas-sm8250-overlay.dtbo
+        dtbo-$(CONFIG_MACH_XIAOMI_CMI) += \
+             cmi-sm8250-overlay.dtbo
+        dtbo-$(CONFIG_MACH_XIAOMI_LMI) += \
+             lmi-sm8250-overlay.dtbo
+        dtbo-$(CONFIG_MACH_XIAOMI_THYME) += \
+             thyme-sm8250-overlay.dtbo
+        dtbo-$(CONFIG_MACH_XIAOMI_UMI) += \
+             umi-sm8250-overlay.dtbo
 
 ifeq ($(CONFIG_BOARD_ALIOTH),y)
 dtbo-$(CONFIG_BOARD_ALIOTH) += \
@@ -60,6 +74,12 @@ endif
 
 ifeq ($(CONFIG_BOARD_XIAOMI_SM7250),y)
 ifeq ($(CONFIG_BUILD_ARM64_DT_OVERLAY),y)
+        dtbo-$(CONFIG_MACH_XIAOMI_MONET) += \
+             monet-sm7250-overlay.dtbo
+	dtbo-$(CONFIG_MACH_XIAOMI_PICASSO) += \
+             picasso-sm7250-overlay.dtbo
+        dtbo-$(CONFIG_MACH_XIAOMI_VANGOGH) += \
+             vangogh-sm7250-overlay.dtbo
 
 ifeq ($(CONFIG_BOARD_MONET),y)
 dtbo-$(CONFIG_BOARD_MONET) += \
